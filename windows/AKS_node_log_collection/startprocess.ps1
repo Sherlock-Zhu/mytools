@@ -14,7 +14,6 @@ param
 
 if ($FileType -eq 'packetcapture') {
     $EventSessionName = 'HnsPacketCapture'
-    $LogFileName = ''
 } elseif ($FileType -eq 'hnstrace') {
     $EventSessionName = 'HnsCapture'
 } else {
