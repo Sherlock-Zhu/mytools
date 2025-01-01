@@ -5,7 +5,7 @@ param
     [Parameter(Mandatory=$true)]
     [string]$FileType,
     [Parameter(Mandatory=$true)]
-    [string]$StorageAccountNam,    
+    [string]$StorageAccountName,    
     [Parameter(Mandatory=$true)]
     [string]$ContainerName,
     [Parameter(Mandatory=$true)]
