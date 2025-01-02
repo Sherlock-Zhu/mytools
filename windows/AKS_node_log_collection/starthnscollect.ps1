@@ -2,7 +2,9 @@
 param
 (
     [Parameter(Mandatory=$true)]
-    [string]$SessionName    
+    [string]$SessionName  
+    [Parameter(Mandatory=$true)]
+    [int]$Period   
 )
 
 if ($SessionName -eq 'HnsPacketCapture') {
@@ -20,7 +22,7 @@ while ($true) {
     $hnsfileName = "c:\" + $SessionName + $currentTime + ".etl"  # 文件名格式为 testfile+当前时间.txt
     $recordfileName = $SessionName + $currentTime + "." + $SessionName + "record"  # 文件名格式为 testfile+当前时间.txt
     powershell $CapScript -EtlFile $hnsfileName -NoPrompt -maxFileSize 1000 # start capture script
-    Start-Sleep -Seconds 60
+    Start-Sleep -Seconds $Period
     Stop-NetEventSession $SessionName  # stop capture session
     Remove-NetEventSession $SessionName  # remove capture session
     New-Item -Path "C:\" -Name $recordfileName -ItemType File  # 创建record文件
