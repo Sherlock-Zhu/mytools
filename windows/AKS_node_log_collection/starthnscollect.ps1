@@ -2,7 +2,7 @@
 param
 (
     [Parameter(Mandatory=$true)]
-    [string]$SessionName  
+    [string]$SessionName,  
     [Parameter(Mandatory=$true)]
     [int]$Period   
 )
