@@ -22,7 +22,29 @@ if ($FileType -eq 'packetcapture') {
 }
 
 # 0. test if container information works:
-
+Write-Output "start testing if storage account information is correct..."
+$testfileName = "testupload"+ $currentTime + ".testfile"
+$testfilePath = "c:\" + $testfileName
+New-Item -Path $testfilePath -ItemType "File" -Force
+$mycontainer = "https://" + $StorageAccountName + ".blob.core.windows.net/" + $ContainerName + "/"
+$sasword = "?" + $SASPasswd 
+$uploaduri = $mycontainer + $testfileName + $sasword
+Invoke-WebRequest -Uri "$uploaduri" -Method Put -InFile "$testfilePath" -Headers @{"x-ms-version"="2019-12-12";"x-ms-blob-type"="BlockBlob"} -UseBasicParsing
+Write-Host -ForegroundColor Green "Have you seen file $testfileName in your storage account?`n`nif you saw the file, please press y, else please press n`n`n"
+while ($true) {
+    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    # 判断输入
+    if ($x.Character -eq 'y') {
+        Write-Host "storage account verify passed, continuing..."
+        break  
+    } elseif ($x.Character -eq 'n') {
+        Write-Host "Seems cannot upload file to your storage account, please check if related information provided is correct or any blocker from storage account side. exiting..."
+        Remove-Item -Path $testfilePath -Force
+        break  
+    } else {
+        Write-Host "Wrong key, please press y or n"
+    }
+}
 
 # 1. force stop process if any
 Write-Output "stop existing capture process if there is any ..."
