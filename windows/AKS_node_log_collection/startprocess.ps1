@@ -9,7 +9,9 @@ param
     [Parameter(Mandatory=$true)]
     [string]$ContainerName,
     [Parameter(Mandatory=$true)]
-    [string]$SASPasswd
+    [string]$SASPasswd,
+
+    [int]$Period = 3600
 )
 
 if ($FileType -eq 'packetcapture') {
@@ -39,7 +41,7 @@ while ($true) {
         break  
     } elseif ($x.Character -eq 'n') {
         Write-Host "Seems cannot upload file to your storage account, please check if related information provided is correct or any blocker from storage account side. exiting..."
-        Remove-Item -Path $testfilePath -Force
+        Remove-Item -Path $testfilePath -Force # remove test file
         break  
     } else {
         Write-Host "Wrong key, please press y or n"
@@ -90,7 +92,7 @@ try {
     exit 1
 }
 try {        
-    Start-Process powershell -ArgumentList "-File C:\Users\myaks\starthnscollect.ps1 -SessionName $EventSessionName" -RedirectStandardOutput "C:\Users\myaks\starthnscollect_out.txt" -RedirectStandardError "C:\Users\myaks\starthnscollect_err.txt"
+    Start-Process powershell -ArgumentList "-File C:\Users\myaks\starthnscollect.ps1 -SessionName $EventSessionName -Period $Period" -RedirectStandardOutput "C:\Users\myaks\starthnscollect_out.txt" -RedirectStandardError "C:\Users\myaks\starthnscollect_err.txt"
 } catch {
     Write-Error "Failed to start log collection process, Error: $_"
     exit 1
