@@ -21,7 +21,8 @@ while ($true) {
     Write-Output "${currentTime}: log collection process start"
     $hnsfileName = "c:\" + $SessionName + $currentTime + ".etl"  # 文件名格式为 testfile+当前时间.txt
     $recordfileName = $SessionName + $currentTime + "." + $SessionName + "record"  # 文件名格式为 testfile+当前时间.txt
-    powershell $CapScript -EtlFile $hnsfileName -NoPrompt -maxFileSize 1000 # start capture script
+    # powershell $CapScript -EtlFile $hnsfileName -NoPrompt -maxFileSize 1000 # start capture script
+    powershell $CapScript -EtlFile $hnsfileName -NoPrompt # temporarily remove size limitation due to use time control
     Start-Sleep -Seconds $Period
     Stop-NetEventSession $SessionName  # stop capture session
     Remove-NetEventSession $SessionName  # remove capture session
