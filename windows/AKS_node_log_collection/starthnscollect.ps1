@@ -22,10 +22,14 @@ while ($true) {
     $hnsfileName = "c:\" + $SessionName + $currentTime + ".etl"  # 文件名格式为 testfile+当前时间.txt
     $recordfileName = $SessionName + $currentTime + "." + $SessionName + "record"  # 文件名格式为 testfile+当前时间.txt
     # powershell $CapScript -EtlFile $hnsfileName -NoPrompt -maxFileSize 1000 # start capture script
-    powershell $CapScript -EtlFile $hnsfileName -NoPrompt # temporarily remove size limitation due to use time control
+    powershell $CapScript -EtlFile $hnsfileName -NoPrompt -maxFileSize 2000 # temporarily expand it to 2000
     Start-Sleep -Seconds $Period
     Stop-NetEventSession $SessionName  # stop capture session
     Remove-NetEventSession $SessionName  # remove capture session
     New-Item -Path "C:\" -Name $recordfileName -ItemType File  # 创建record文件
     Start-Sleep -Seconds 1
 }
+
+
+
+ADLS
