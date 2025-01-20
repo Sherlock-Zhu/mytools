@@ -86,13 +86,13 @@ if ($files) {
 
 # 3. start process
 try {
-    Start-Process powershell -ArgumentList "-File C:\Users\myaks\uploadhnscollect.ps1 -EventSessionName $EventSessionName -StorageAccountName $StorageAccountName -ContainerName $ContainerName -SASPasswd $SASPasswd" -RedirectStandardOutput "C:\Users\myaks\uploadhnscollect_out.txt" -RedirectStandardError "C:\Users\myaks\uploadhnscollect_err.txt"
+    Start-Process powershell -ArgumentList "-File uploadhnscollect.ps1 -EventSessionName $EventSessionName -StorageAccountName $StorageAccountName -ContainerName $ContainerName -SASPasswd $SASPasswd" -RedirectStandardOutput "uploadhnscollect_out.txt" -RedirectStandardError "uploadhnscollect_err.txt"
 } catch {
     Write-Error "Failed to start log upload process, Error: $_"
     exit 1
 }
 try {        
-    Start-Process powershell -ArgumentList "-File C:\Users\myaks\starthnscollect.ps1 -SessionName $EventSessionName -Period $Period" -RedirectStandardOutput "C:\Users\myaks\starthnscollect_out.txt" -RedirectStandardError "C:\Users\myaks\starthnscollect_err.txt"
+    Start-Process powershell -ArgumentList "-File starthnscollect.ps1 -SessionName $EventSessionName -Period $Period" -RedirectStandardOutput "starthnscollect_out.txt" -RedirectStandardError "starthnscollect_err.txt"
 } catch {
     Write-Error "Failed to start log collection process, Error: $_"
     exit 1
