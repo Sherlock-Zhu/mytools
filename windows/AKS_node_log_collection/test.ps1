@@ -1,4 +1,4 @@
-cd c:
+cd c:\
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Sherlock-Zhu/mytools/main/windows/AKS_node_log_collection/PartnerTTDRecorder_x86_x64.zip" -OutFile "PartnerTTDRecorder_x86_x64.zip"
 Expand-Archive .\PartnerTTDRecorder_x86_x64.zip
 $path = "c:\PartnerTTDRecorder_x86_x64.zip"
